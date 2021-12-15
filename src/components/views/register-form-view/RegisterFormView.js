@@ -7,7 +7,7 @@ import Validation from "../../../utils/validation";
 
 function RegisterFormView() {
   const [validated, setValidated] = useState(false);
-  const [passNotMatch, setPassNotMatch] = useState(true);
+  const [passMatch, setPassMatch] = useState(true);
   const [showMessage, setShowMessage] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
@@ -15,9 +15,9 @@ function RegisterFormView() {
     event.preventDefault();
     setShowMessage(true);
 
-    if (Validation.formValid(event) && passNotMatch === false) {
+    if (Validation.formValid(event) && passMatch ) {
       try {
-        await AuthServices.login(formInfo);
+        await AuthServices.register(formInfo);
         setShowSuccess(true);
       } catch (err) {
         console.log(err);
@@ -31,9 +31,9 @@ function RegisterFormView() {
 
   const confirmHandler = (event) => {
     if (formInfo.password !== formInfo.confirmPass) {
-      setPassNotMatch(true);
+      setPassMatch(true);
     } else {
-      setPassNotMatch(false);
+      setPassMatch(false);
     }
     focusHandler(event);
   };
@@ -56,12 +56,16 @@ function RegisterFormView() {
       <Row className="m-3">
         <Col md={6} className="m-auto mt-5">
           {showSuccess && showMessage && (
-            <Alert variant="success">login success</Alert>
+            <Alert onClose={() => setShowMessage(false)} variant="success">
+              Registration success
+            </Alert>
           )}
           {!showSuccess && showMessage && (
-            <Alert variant="danger">User Not Registered</Alert>
+            <Alert onClose={() => setShowMessage(false)} variant="danger">
+              User Not Registered
+            </Alert>
           )}
-          {!passNotMatch && (
+          {!passMatch && (
             <Alert variant="danger">Password doesn't match </Alert>
           )}
           <Form noValidate validated={validated} onSubmit={handleSubmit}>

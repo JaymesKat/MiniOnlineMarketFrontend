@@ -7,6 +7,7 @@ import SellerHome from '../pages/seller-home/SellerHome';
 import ProductList from '../components/views/product-list/ProductList';
 import OrderList from '../components/views/order-list/OrderList';
 import SaleList from '../components/views/sale-list/SaleList';
+import ProductView from '../components/views/product-view/ProductView';
 
 export default function AppRoutes(){
     return (
@@ -14,7 +15,8 @@ export default function AppRoutes(){
             <Route exact path="/" element={<Home />}>
                 <Route index element={<ProductList />} />
                 <Route path="catalog" element={<ProductList />} />
-                <Route path="orders" element={<OrderList />} />
+                <Route path="products/:productId" element={<ProductView />} />
+                <Route path="orders/:id" element={<OrderList />} />
             </Route>
             <Route path="seller-home" element={<SellerHome />}>
                 <Route index element={<ProductList />} />

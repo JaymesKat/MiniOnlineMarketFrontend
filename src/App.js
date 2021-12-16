@@ -1,20 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
-import {
-  BrowserRouter
-} from "react-router-dom";
-import AppRoutes from './router/routes';
-import NavBar from './components/shared/navbar/NavBar'
+import {Provider} from 'react-redux'
+import {AuthProvider} from "./context/AuthContext";
+import OnlineMarket from "./OnlineMarket";
+import {ProductProvider} from "./context/ProductContext";
+import {store} from './redux/store'
 
 function App() {
-  return (
-    <div className="App">
-        <BrowserRouter>
-            <NavBar/>
-            <AppRoutes />
-        </BrowserRouter>
-    </div>
-  );
+
+    return (
+        <div className="App">
+            <AuthProvider>
+                <ProductProvider>
+                    <Provider store={store}>
+                        <OnlineMarket/>
+                    </Provider>
+                </ProductProvider>
+            </AuthProvider>
+        </div>
+    );
 }
 
 export default App;

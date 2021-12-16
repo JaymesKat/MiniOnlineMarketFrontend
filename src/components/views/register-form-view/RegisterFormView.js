@@ -3,9 +3,13 @@ import { Form, Container, Row, Col, Button, Alert } from "react-bootstrap";
 import { useState } from "react";
 
 import AuthServices from "../../../services/authservice";
-import Validation from "../../../utils/validation";
+import Util from "../../../utils/util";
+import { useNavigate} from "react-router-dom";
+
 
 function RegisterFormView() {
+  const navigate = useNavigate();
+
   const [validated, setValidated] = useState(false);
   const [passMatch, setPassMatch] = useState(true);
   const [showMessage, setShowMessage] = useState(false);
@@ -15,10 +19,11 @@ function RegisterFormView() {
     event.preventDefault();
     setShowMessage(true);
 
-    if (Validation.formValid(event) && passMatch ) {
+    if (Util.formValid(event) && passMatch ) {
       try {
         await AuthServices.register(formInfo);
         setShowSuccess(true);
+        navigate("/");
       } catch (err) {
         console.log(err);
         setShowSuccess(false);

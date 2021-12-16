@@ -1,9 +1,13 @@
 import { Form, Container, Row, Col, Button, Alert } from "react-bootstrap";
 import { useState } from "react";
-import AuthServices from "../../../services/authservice";
-import Validation from "../../../utils/validation";
+import jwt_decode from "jwt-decode";
+import Util from "../../../utils/util";
+import { useNavigate } from "react-router-dom";
+import Authservice from "../../../services/authservice";
 
 function LoginFormView() {
+  const navigate = useNavigate();
+
   const [validated, setValidated] = useState(false);
   const [loginInfo, setLoginInfo] = useState({
     username: "",
@@ -17,12 +21,22 @@ function LoginFormView() {
     event.preventDefault();
     setShowMessage(true);
 
-    if (Validation.formValid(event)) {
+    if (Util.formValid(event)) {
       try {
-        let response = await AuthServices.login(loginInfo);
+        let response = await Authservice.login(loginInfo);
 
-        Validation.persistToken(response);
+        const token = Util.persistToken(response);
         setShowSuccess(true);
+        Authservice.persistUser(token);
+        const roles = Util.getUserRoles(token);
+
+        if(roles.includes(Authservice.ROLE_SELLER)){
+          navigate('/seller-home')
+        }
+        if(roles.includes(Authservice.ROLE_BUYER)){
+          navigate("/")
+        }
+
       } catch (err) {
         console.log(err);
         setShowSuccess(false);
@@ -89,9 +103,12 @@ function LoginFormView() {
                   required
                 />
               </Form.Group>
-              <Button type="submit" variant="primary">
-                Submit
-              </Button>
+              <Form.Group
+                  className="mb-8">
+                  <Button type="submit" variant="primary">
+                    Submit
+                  </Button>
+            </Form.Group>
             </Row>
           </Form>
         </Col>

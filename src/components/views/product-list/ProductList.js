@@ -1,67 +1,57 @@
 import { Container, Row, Col, Card, CardGroup, Button } from 'react-bootstrap';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import {ProductContext} from "../../../context/ProductContext";
 import ProductView from '../product-view/ProductView';
+import ProductCard from "../../product-card/ProductCard";
 
 function ProductList() {
 
     let navigate = useNavigate();
+
+    const [products, setProducts] = useContext(ProductContext);
+    const [loading, setLoading] = useState(true);
+
     function showProduct(product) { 
         navigate('/products/'+ product.id)
     }
 
-    let [listProducts, setListProducts] = useState([
-        {
-            title: "Product 1",
-            description: "This is a product"
-        },
-        {
-            title: "Product 2",
-            description: "This is a product"
-        },
-        {
-            title: "Product 3",
-            description: "This is a product"
-        },
-        {
-            title: "Product 4",
-            description: "This is a product"
-        }
-    ]);
-
     useEffect(() => {
-        axios.get('http://localhost:8080/api/v1/products').then(res => {
-            setListProducts(res.data);
+        const token = localStorage.getItem("token");
+        setLoading(true);
+        axios.get('http://localhost:8080/api/v1/products', {
+            headers: {
+                Authorization: "Bearer "+token
+            }
+        }).then(res => {
+            setProducts(res.data);
+            setLoading(false);
         }).catch((error) => {
             console.log(error);
+            setLoading(false)
         })
     }, []);
 
     return (
         <Container>
-            {/* <Row className="g-4">
-                <Col> */}
-            <CardGroup className="d-flex">
-                {
-                    listProducts.map(product => {
-                        return (
-                            <Card className="m-2">
-                                <Card.Img variant="top" src="https://via.placeholder.com/100x100" onClick={() => showProduct(product)}/>
-                                <Card.Body>
-                                    <Card.Title>{product.title}</Card.Title>
-                                    <Card.Text>
-                                        {product.description}
-                                    </Card.Text>
-                                    <Button variant="primary">Add To Cart</Button>
-                                </Card.Body>
-                            </Card>
-                        )
-                    })
-                }
-            </CardGroup>
-            {/* </Col>
-            </Row> */}
+            <Row className="g-4">
+                <Col>
+                    {!loading ?
+                        (products.length > 0 ?
+                                (
+                                    <CardGroup  className="d-flex flex-fill justify-content-start m-auto mt-1 flex-wrap">
+                                    {
+                                        products.map(
+                                            (product) =>  (<ProductCard
+                                                className="border" style={{"minWidth": "10rem"}}
+                                                key={product.id} product={product} showProduct={() => showProduct()} />))
+                                    }
+                                </CardGroup>) : (<div>There are no products</div>)
+                        ) : (<>Loading....</>)
+                    }
+                </Col>
+            </Row>
         </Container>
     )
 }

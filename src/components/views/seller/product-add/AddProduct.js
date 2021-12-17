@@ -19,22 +19,6 @@ function ProductEdit(){
         reviews: []
     });
 
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        axios.get(`http://localhost:8080/api/v1/sellers/products/${params.id}`, {
-            headers: {
-                Authorization: "Bearer "+token
-            }
-        }).then(res => {
-            setProductInfo(res.data);
-            console.log(res.data);
-        }).catch((error) => {
-            console.log(error);
-        })
-        }, [params.id]
-    )
-
-
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -42,14 +26,15 @@ function ProductEdit(){
             try {
 
                 const token = localStorage.getItem("token");
-                axios.put(`http://localhost:8080/api/v1/sellers/products/${params.id}`, productInfo, {
+                const payload = {...productInfo, dateCreated: (new Date().toISOString())}
+                axios.post(`http://localhost:8080/api/v1/sellers/products/`, payload, {
                     headers: {
                         Authorization: "Bearer "+token
                     }})
                     .then(response=>{
-                    console.log(response);
-                    navigate("/seller-home/products");
-                })
+                        console.log(response);
+                        navigate("/seller-home/products");
+                    })
             } catch (err) {
                 console.log(err);
                 setShowError(false);
@@ -69,7 +54,6 @@ function ProductEdit(){
     return (
         <Container>
             <Row>
-                <Col sm={5} className="mt-1">Edit Product</Col>
                 <Col sm={10} className="m-auto">
                     {showError && (
                         <Alert
@@ -81,7 +65,7 @@ function ProductEdit(){
                         </Alert>
                     )}
                 </Col>
-                <Col sm ={6} className="mt-5">
+                <Col sm ={6} className="mt-2">
                     <Form noValidate validated={validated} onSubmit={handleSubmit}>
                         <Row className="mb-3">
                             <Form.Group
@@ -100,8 +84,8 @@ function ProductEdit(){
                                     required
                                 />
                             </Form.Group>
-                            </Row>
-                            <Row className="mb-3">
+                        </Row>
+                        <Row className="mb-3">
                             <Form.Group
                                 as={Col}
                                 className="mb-3"
@@ -117,8 +101,8 @@ function ProductEdit(){
                                     required
                                 />
                             </Form.Group>
-                            </Row>
-                            <Row className="mb-3">
+                        </Row>
+                        <Row className="mb-3">
                             <Form.Group
                                 as={Col}
                                 className="mb-3"
@@ -135,8 +119,8 @@ function ProductEdit(){
                                     required
                                 />
                             </Form.Group>
-                            </Row>
-                            <Row className="mb-3">
+                        </Row>
+                        <Row className="mb-3">
                             <Form.Group
                                 as={Col}
                                 className="mb-3"
@@ -152,8 +136,8 @@ function ProductEdit(){
                                     required
                                 />
                             </Form.Group>
-                            </Row>
-                            <Row className="mb-3">
+                        </Row>
+                        <Row className="mb-3">
                             <Form.Group
                                 as={Col}
                                 className="mb-3"

@@ -14,7 +14,9 @@ import RequireAuth from "./RequireAuth";
 import Logout from "../pages/logout/Logout";
 import AuthServices from "../services/authservice";
 import FollowerList from "../components/views/seller/followers/FollowerList";
-import SellerProductList from "../components/views/seller-products/SellerProductList";
+import SellerProductList from "../components/views/seller/product-list/SellerProductList";
+import ProductEdit from "../components/views/seller/product-edit/ProductEdit";
+import AddProduct from "../components/views/seller/product-add/AddProduct";
 
 export default function AppRoutes() {
     const { ROLE_SELLER, ROLE_ADMIN } = AuthServices;
@@ -57,6 +59,8 @@ export default function AppRoutes() {
             <Route path="seller-home" element={<SellerHome requiredRole={ROLE_SELLER} />}>
                 <Route index element={<ProductList/>}/>
                 <Route path="products" element={<SellerProductList/>}/>
+                <Route path="products/edit/:id" element={<ProductEdit />}/>
+                <Route path="products/add/" element={<AddProduct />}/>
                 <Route path="sales" element={<SaleList/>}/>
                 <Route path="followers" element={<FollowerList/>}/>
             </Route>

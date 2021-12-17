@@ -1,9 +1,9 @@
 import { Container, Row, Col, Card, CardGroup, Button } from 'react-bootstrap';
 import { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
-import {ProductContext} from "../../../context/ProductContext";
-import ProductCard from "../../product-card/ProductCard";
+import {Link, useNavigate, useParams} from 'react-router-dom';
+import {ProductContext} from "../../../../context/ProductContext";
+import ProductCard from "../../../seller-product-card/ProductCard";
 
 function SellerProductList() {
 
@@ -35,6 +35,11 @@ function SellerProductList() {
     return (
         <Container>
             <Row className="g-4">
+                <Col sm={3}>
+                    <Link to={"add"} className={"m-3"}><Button variant={"primary"}>Add Product</Button></Link>
+                </Col>
+            </Row>
+                <Row className="g-4">
                 <Col>
                     {!loading ?
                         (products.length > 0 ?

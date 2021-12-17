@@ -13,7 +13,6 @@ const AuthServices = {
     return response.data;
   },
   persistUser: (token) => {
-    console.log(token);
     const roles = Util.getUserRoles(token);
     const { sub } = jwt_decode(token);
     const user = {

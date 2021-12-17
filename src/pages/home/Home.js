@@ -1,5 +1,5 @@
 import {Container, Row, Col, ListGroup} from 'react-bootstrap';
-import { NavBar } from '../../components/shared/navbar/NavBar';
+
 import {
   Link,
   Outlet

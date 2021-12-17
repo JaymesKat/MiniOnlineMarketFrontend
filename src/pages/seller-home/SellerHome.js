@@ -5,6 +5,7 @@ function SellerHome() {
     return (
         <Container fluid className="mt-4">
             <Row>
+                <Col sm={12}><h2>Seller Dashboard</h2></Col>
                 <Col sm={3}>
                     <ListGroup>
                         <ListGroup.Item><Link to="products">My Products</Link></ListGroup.Item>

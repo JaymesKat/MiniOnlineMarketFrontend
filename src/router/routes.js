@@ -11,8 +11,11 @@ import ProductView from '../components/views/product-view/ProductView';
 import Checkout from '../components/views/buyer/checkout/Checkout';
 import Cart from '../components/views/buyer/cart/Cart';
 import RequireAuth from "./RequireAuth";
+import Logout from "../pages/logout/Logout";
+import AuthServices from "../services/authservice";
 
 export default function AppRoutes() {
+    const { ROLE_SELLER, ROLE_ADMIN } = AuthServices;
     return (
         <Routes>
             <Route exact path="/" element={
@@ -49,12 +52,13 @@ export default function AppRoutes() {
                     </RequireAuth>
                 }/>
             </Route>
-            <Route path="seller-home" element={<SellerHome/>}>
+            <Route path="seller-home" element={<SellerHome requiredRole={ROLE_SELLER} />}>
                 <Route index element={<ProductList/>}/>
                 <Route path="products" element={<ProductList/>}/>
                 <Route path="sales" element={<SaleList/>}/>
             </Route>
             <Route path="login" element={<Login/>}/>
+            <Route path="logout" element={<Logout/>}/>
             <Route path="register" element={<Register/>}/>
             <Route path="*" element={<NotFound/>}/>
         </Routes>

@@ -14,7 +14,7 @@ const Cart = () => {
                 </Col>
                 <Col className="d-flex flex-fill justify-content-center m-auto mt-1" md={4}>
                     {
-                        cartItems.length == 0
+                        cartItems.length === 0
                             ?
                             (<div>Your cart is empty.  <Link to="/">Continue Shopping</Link></div>)
                             :

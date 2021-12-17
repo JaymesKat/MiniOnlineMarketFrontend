@@ -20,7 +20,7 @@ function LoginFormView() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setShowMessage(true);
-
+    console.log(loginInfo.username,": ", loginInfo.password)
     if (Util.formValid(event)) {
       try {
         let response = await Authservice.login(loginInfo);

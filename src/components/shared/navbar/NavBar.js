@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import {Container, Navbar, Nav, NavItem} from 'react-bootstrap';
+import {Container, Navbar, Nav, NavItem, NavDropdown} from 'react-bootstrap';
 import {useSelector} from "react-redux";
 import {LinkContainer} from 'react-router-bootstrap';
 import {BsFillCartCheckFill, BsFillPersonFill} from 'react-icons/bs';
@@ -46,9 +46,14 @@ function NavBar() {
                                 </LinkContainer>)
                             }
                             <div style={{"cursor": "pointer"}} className="d-flex">
-                                <div className="ms-2 m-auto" style={{"color": "#FFF"}}>{authState.user.username}</div>
-                                }
                                 <BsFillPersonFill color="white" className="ms-2 mt-2" size={30}/>)
+                                <NavDropdown title={authState.user.username} id="basic-nav-dropdown">
+                                    <LinkContainer to="/reviews">
+                                        <NavDropdown.Item>My Reviews</NavDropdown.Item>
+                                    </LinkContainer>
+                                    <NavDropdown.Divider />
+                                    <LinkContainer to={"/logout"}><NavDropdown.Item href={"/logout"}>Log out</NavDropdown.Item></LinkContainer>
+                                </NavDropdown>
                             </div>
                         </Nav>
                     }

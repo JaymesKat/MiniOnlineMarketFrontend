@@ -13,6 +13,8 @@ import Cart from '../components/views/buyer/cart/Cart';
 import RequireAuth from "./RequireAuth";
 import Logout from "../pages/logout/Logout";
 import AuthServices from "../services/authservice";
+import FollowerList from "../components/views/seller/followers/FollowerList";
+import SellerProductList from "../components/views/seller-products/SellerProductList";
 
 export default function AppRoutes() {
     const { ROLE_SELLER, ROLE_ADMIN } = AuthServices;
@@ -54,8 +56,9 @@ export default function AppRoutes() {
             </Route>
             <Route path="seller-home" element={<SellerHome requiredRole={ROLE_SELLER} />}>
                 <Route index element={<ProductList/>}/>
-                <Route path="products" element={<ProductList/>}/>
+                <Route path="products" element={<SellerProductList/>}/>
                 <Route path="sales" element={<SaleList/>}/>
+                <Route path="followers" element={<FollowerList/>}/>
             </Route>
             <Route path="login" element={<Login/>}/>
             <Route path="logout" element={<Logout/>}/>

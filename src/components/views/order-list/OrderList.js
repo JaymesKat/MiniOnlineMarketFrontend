@@ -1,11 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Container, Row, Col, ListGroup, CardGroup, Card } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
 
 function OrderList() {
     let [orders, setOrders] = useState([]);
-    let params = useParams();
 
     useEffect(() => {
         const token = localStorage.getItem("token");

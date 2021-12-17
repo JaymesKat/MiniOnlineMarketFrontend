@@ -10,6 +10,7 @@ function SellerHome() {
                     <ListGroup>
                         <ListGroup.Item><Link to="products">My Products</Link></ListGroup.Item>
                         <ListGroup.Item><Link to="sales">Sales</Link></ListGroup.Item>
+                        <ListGroup.Item><Link to="followers">Followers</Link></ListGroup.Item>
                     </ListGroup>
                 </Col>
                 <Col sm={9}>

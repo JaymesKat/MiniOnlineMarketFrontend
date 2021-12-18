@@ -6,9 +6,13 @@ import { useParams } from 'react-router-dom';
 function ProductView() {
     let params = useParams();
     let [product, setProduct] = useState({});
+    const token = localStorage.getItem("token");
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/v1/products/' + params.productId)
+        axios.get('http://localhost:8080/api/v1/products/' + params.productId,
+        {headers: {
+            Authorization: "Bearer "+token
+        }})
             .then(res => {
                 setProduct(res.data);
             })

@@ -22,7 +22,7 @@ const Cart = () => {
                                 (item, idx) => <CartItem key={idx} item={item}/>
                             )
                     }
-                < /Col>
+                </Col>
             </Row>
         </Container>
     )

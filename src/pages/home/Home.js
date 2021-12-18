@@ -14,6 +14,7 @@ function Home() {
                 <ListGroup>
                     <ListGroup.Item><Link to="catalog">Catalog</Link></ListGroup.Item>
                     <ListGroup.Item><Link to="orders">Orders</Link></ListGroup.Item>
+                    <ListGroup.Item><Link to="addresses">Addresses</Link></ListGroup.Item>
                 </ListGroup>
                 </Col>
                 <Col sm={9}>

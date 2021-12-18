@@ -45,7 +45,7 @@ function ProductList() {
                                         products.map(
                                             (product) =>  (<ProductCard
                                                 className="border" style={{"minWidth": "10rem"}}
-                                                key={product.id} product={product} showProduct={() => showProduct()} />))
+                                                key={product.id} product={product} showProduct={() => showProduct(product)} />))
                                     }
                                 </CardGroup>) : (<div>There are no products</div>)
                         ) : (<>Loading....</>)

@@ -17,6 +17,7 @@ import FollowerList from "../components/views/seller/followers/FollowerList";
 import SellerProductList from "../components/views/seller/product-list/SellerProductList";
 import ProductEdit from "../components/views/seller/product-edit/ProductEdit";
 import AddProduct from "../components/views/seller/product-add/AddProduct";
+import Address from '../components/addresses/Address';
 
 export default function AppRoutes() {
     const { ROLE_SELLER, ROLE_ADMIN } = AuthServices;
@@ -53,6 +54,11 @@ export default function AppRoutes() {
                 <Route path="cart" element={
                     <RequireAuth>
                         <Cart/>
+                    </RequireAuth>
+                }/>
+                <Route path="addresses" element={
+                    <RequireAuth>
+                        <Address/>
                     </RequireAuth>
                 }/>
             </Route>
